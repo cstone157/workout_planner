@@ -1,45 +1,46 @@
 import React, {useState} from 'react';
-import {Button, Text, View} from 'react-native';
+import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 
 
-type ExerciseProps = {
-  name: string;
-  description: string;
-  sets: int;
+type ExerciseSetProp = {
   reps: int;
   weight: int;
-  seconds: int;
-  cardio: boolean;
+  collapsed: boolean;
+  complete: boolean;
 };
-
-
-const Exercise = (props: ExerciseProps) => {
-  
-  if (props.cardio){
-    return (
-      <View>
-        <Text>{props.name}</Text>
-        <Text>{props.description}</Text>
-        <Text>Reps: {props.reps}</Text>
-        <Text>Sets: {props.sets}</Text> 
-      </View>
-    )
-  } else {
-    return (
-      <View>
-        <Text>{props.name}</Text>
-        <Text>{props.description}</Text>
-        <Text>Reps: {props.reps}</Text>
-        <Text>Time: {props.seconds}</Text> 
-      </View>
-    )
-  }
-}
 
 
 type CatProps = {
   name: string;
 };
+
+const ExerciseSetComponent = (props: ExerciseSetProp) => {
+  const [isComplete, setComplete] = useState(false);
+  const [isCollapsed, setCollapsed] = useState(false);
+
+  return (
+    <View style={[
+        styles.container,
+        {
+          flexDirection: 'row',
+          maxHeight: '80px',
+          justifyContent: 'center',
+          
+        },
+      ]}>
+      <Text style={{flex: 1}} >Weight: </Text>
+      <TextInput value={props.weight} keyboardType="number-pad" style={{flex: 1}} />
+      {!isComplete && (
+      <Button 
+        onPress={() => {
+          setComplete(!isComplete)
+        }}
+        title='Finished?'
+      />
+      )}
+    </View>
+  )
+}
 
 const Cat = (props: CatProps) => {
   const [isHungry, setIsHungry] = useState(true);
@@ -63,11 +64,16 @@ const Cat = (props: CatProps) => {
 const Workout = () => {
   return (
     <>
-      <Cat name="Munkustrap" />
-      <Cat name="Spot" />
-      <Exercise name="Pullups" description="Using pullup bar pull yourself up" sets="4" reps="4" cardio="false" />
+      <ExerciseSetComponent reps="5" weight="45" collapsed="false" complete="false" />
     </>
   );
 };
 
-export default Cafe;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+});
+
+export default Workout;

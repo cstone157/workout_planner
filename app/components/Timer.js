@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert, Platform } from 'react
 import ExerciseSetComponent from './ExerciseSetComponent';
 import styles from '../stylesheets/ExerciseComponentStyles';
 
-const ExerciseComponent = ({
+const Timer = ({
   name,
   description,
   initialSets,
@@ -131,68 +131,16 @@ const ExerciseComponent = ({
   const activeSetId = getNextActiveSetId(); // Get the ID of the next active set
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => setIsCollapsed(!isCollapsed)} style={styles.header}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.collapseIcon}>{isCollapsed ? '▼' : '▲'}</Text>
-      </TouchableOpacity>
-
-      {!isCollapsed && (
-        <View>
-          <Text style={styles.description}>{description}</Text>
-
-          {timeBetweenSets !== undefined && (
-            <Text style={styles.timerText}>Rest Between Sets: {timeBetweenSets} seconds</Text>
-          )}
-
-          {isTimerRunning && (
-            <View style={styles.restTimerDisplay}>
-              <Text style={styles.restTimerLabel}>Resting after Set {restingSetId}:</Text>
-              <Text style={styles.restTimerValue}>{formatTime(restTimer)}</Text>
-              <TouchableOpacity onPress={() => { setIsTimerRunning(false); setRestTimer(0); setRestingSetId(null); clearInterval(timerRef.current); }} style={styles.skipButton}>
-                <Text style={styles.skipButtonText}>Skip Rest</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-
-
-          <View style={styles.setsContainer}>
-            {sets.map((set, index) => (
-              <View key={set.id} style={styles.setRow}>
-                <Text style={styles.setIndexText}>{index + 1}.</Text>
-                <ExerciseSetComponent
-                  setId={set.id}
-                  initialReps={set.reps}
-                  initialWeight={set.weight}
-                  isWarmup={set.isWarmup}
-                  isActive={!set.completed && set.id === activeSetId && !isTimerRunning} // Is this the current set to do?
-                  isResting={set.completed && set.id === restingSetId && isTimerRunning} // Is the timer for *this* set?
-                  onSave={(newReps, newWeight) => handleUpdateSet(set.id, newReps, newWeight)}
-                  onToggleSetType={handleToggleSetType}
-                  onSetCompleted={handleSetCompleted} // Pass the new handler
-                  style={styles.individualSetComponent}
-                />
-                {/* Only show remove button if not currently resting or if it's not the set for which timer is running */}
-                {(!isTimerRunning || set.id !== restingSetId) && (
-                    <TouchableOpacity onPress={() => handleRemoveSet(set.id)} style={styles.removeSetButton}>
-                    <Text style={styles.removeSetButtonText}>X</Text>
-                    </TouchableOpacity>
-                )}
-              </View>
-            ))}
-          </View>
-
-          <TouchableOpacity style={styles.addSetButton} onPress={handleAddSet}>
-            <Text style={styles.addSetButtonText}>+ Add Set</Text>
-          </TouchableOpacity>
-
-          {timeAfterExercise !== undefined && (
-            <Text style={styles.timerText}>Rest After Exercise: {timeAfterExercise} seconds</Text>
-          )}
-        </View>
-      )}
+    {isTimerRunning && (
+    <View style={styles.restTimerDisplay}>
+        <Text style={styles.restTimerLabel}>Resting after Set {restingSetId}:</Text>
+        <Text style={styles.restTimerValue}>{formatTime(restTimer)}</Text>
+        <TouchableOpacity onPress={() => { setIsTimerRunning(false); setRestTimer(0); setRestingSetId(null); clearInterval(timerRef.current); }} style={styles.skipButton}>
+        <Text style={styles.skipButtonText}>Skip Rest</Text>
+        </TouchableOpacity>
     </View>
+    )}
   );
 };
 
-export default ExerciseComponent;
+export default Timer;

@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Example",
+        "description": "Description of the type of exercise",
+        "instruction": "Instruction's for completing the exercise",
+        "image": "url of image",
+        "thumbnail": "url of thumbnail",
+        "slideshow": "blank for now",
+        "video": "url of the videos",
+        "category": ["Cardio", "Calestenics", "Weight lifting", "Resistance training"],
+        "type": "Reps, Timed, Reps_Timed",
+        "body_parts_targeted": ["Optional", "Or list body parts"]
+    },
+    {
+        "name": "Pushups",
+        "description": "Push-ups are a bodyweight exercise that builds upper-body and core strength by working the chest, shoulders, and triceps.",
+        "instruction": "Starting position:
+- Get on all fours, then extend your legs back so your body forms a straight line from your head to your heels. Place your hands on the floor slightly wider than your shoulders, with your fingers spread. 
+Engage your core:
+- Brace your core and squeeze your glutes to keep your hips from sagging or arching your back. Keep your gaze on the floor in front of you to maintain a neutral neck position. 
+Lowering your body:
+- Bend your elbows, keeping them tucked in towards your sides at about a 45-degree angle, and lower your chest towards the floor. Go down until your chest is almost touching the ground. 
+Pressing back up:
+- Push through your hands to extend your arms and return to the high plank position. Pause briefly before starting the next repetition.",
+        "image": "",
+        "thumbnail": "",
+        "slideshow": "",
+        "video": "",
+        "category": ["Body weight"],
+        "type": "Reps",
+        "body_parts_targeted": ["chest", "shoulders", "triceps"]
+    },
+    
+]

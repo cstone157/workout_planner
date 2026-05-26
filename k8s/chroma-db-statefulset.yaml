@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: chroma-db
+  namespace: workout-planner
+spec:
+  serviceName: chroma-db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chroma-db
+  template:
+    metadata:
+      labels:
+        app: chroma-db
+    spec:
+      containers:
+        - name: chroma-db
+          image: chroma/chroma:latest
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: chroma-data
+              mountPath: /data
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+  volumeClaimTemplates:
+    - metadata:
+        name: chroma-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chroma-db
+  namespace: workout-planner
+spec:
+  clusterIP: None
+  selector:
+    app: chroma-db
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP

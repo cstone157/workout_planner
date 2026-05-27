@@ -1,3 +1,5 @@
+{{- if .Values.enabled -}}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -43,3 +45,4 @@ spec:
     - port: 11434
       targetPort: 11434
       protocol: TCP
+{{- end -}}

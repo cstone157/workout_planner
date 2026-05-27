@@ -18,7 +18,8 @@ spec:
     spec:
       containers:
         - name: chroma-db
-          image: chroma/chroma:latest
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8000
           volumeMounts:

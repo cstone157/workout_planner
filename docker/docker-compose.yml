@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: workout_planner_db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_DATABASE: workout_planner
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - workout_network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    container_name: workout_planner_backend
+    ports:
+      - "8080:8080"
+    environment:
+      RUST_LOG: info
+      SERVER_HOST: 0.0.0.0
+      SERVER_PORT: 8080
+      MONGODB_URI: mongodb://admin:admin123@mongodb:27017
+      MONGODB_DATABASE: workout_planner
+      JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-this}
+      JWT_EXPIRATION_HOURS: 24
+      CORS_ALLOWED_ORIGINS: http://localhost:5173,http://localhost:3000
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - workout_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    container_name: workout_planner_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_URL: http://backend:8080/api
+    depends_on:
+      - backend
+    networks:
+      - workout_network
+
+volumes:
+  mongodb_data:
+
+networks:
+  workout_network:
+    driver: bridge

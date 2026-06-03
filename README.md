@@ -356,14 +356,73 @@ workout_planner/
 - MongoDB 5.0+ or MongoDB Atlas
 - Git
 
-### Quick Start
+### Quick Start (Local Development)
 1. Clone the repository
-2. Follow [SETUP.md](docs/SETUP.md) for detailed setup instructions
-3. See [API.md](docs/API.md) for API endpoint documentation
+2. Follow [docs/SETUP.md](docs/SETUP.md) for detailed setup instructions
+3. See [docs/API.md](docs/API.md) for API endpoint documentation
+
+### Kubernetes Deployment
+Deploy to a Kubernetes cluster using Helm:
+1. Build and push Docker images: `./scripts/build-images.sh`
+2. Configure Helm values in `chart/values.yaml`
+3. Deploy with: `./scripts/deploy.sh`
+
+See:
+- [docs/KUBERNETES.md](docs/KUBERNETES.md) - Complete Kubernetes deployment guide
+- [chart/README.md](chart/README.md) - Helm chart documentation
+- [docs/KUBECTL-CHEATSHEET.md](docs/KUBECTL-CHEATSHEET.md) - Common kubectl/Helm commands
+- [docs/PRODUCTION-CHECKLIST.md](docs/PRODUCTION-CHECKLIST.md) - Pre-production checklist
 
 ---
 
-## Features Checklist
+## Deployment
+
+### Docker & Docker Compose
+
+For local containerized deployment:
+
+```bash
+docker-compose up -d
+```
+
+Services will be available at:
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8080
+- MongoDB: localhost:27017
+
+See [docker-compose.yml](docker/docker-compose.yml) for configuration options.
+
+### Kubernetes & Helm
+
+Deploy to production Kubernetes clusters with our Helm chart.
+
+**Quick Deploy:**
+```bash
+# Build images
+./scripts/build-images.sh docker.io your-username v1.0.0
+
+# Deploy to development
+./scripts/deploy.sh workout-planner workout-planner dev
+
+# Deploy to production
+./scripts/deploy.sh workout-planner workout-planner prod
+```
+
+**Chart Features:**
+- Multi-replica deployments for high availability
+- Horizontal Pod Autoscaling (HPA)
+- MongoDB StatefulSet with persistent volumes
+- ConfigMaps and Secrets management
+- Ingress support for external access
+- Pod Disruption Budgets for reliability
+- Health checks and probes
+
+See:
+- [KUBERNETES.md](docs/KUBERNETES.md) - Complete Kubernetes deployment guide
+- [chart/README.md](chart/README.md) - Helm chart documentation
+- [scripts/README.md](scripts/README.md) - Deployment scripts
+
+---
 
 ### Workout Tracking
 - [ ] Log completed workouts with exercises, sets, reps, and weight

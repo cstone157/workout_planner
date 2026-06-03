@@ -1,0 +1,7 @@
+# Helm ignore patterns
+.git
+.gitignore
+.github
+.helmignore
+*.md
+.DS_Store

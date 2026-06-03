@@ -1,0 +1,35 @@
+{{- if .Values.podDisruptionBudget.enabled }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "workout-planner.fullname" . }}-backend
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    app.kubernetes.io/name: {{ include "workout-planner.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    component: backend
+spec:
+  minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "workout-planner.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      component: backend
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "workout-planner.fullname" . }}-frontend
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    app.kubernetes.io/name: {{ include "workout-planner.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    component: frontend
+spec:
+  minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "workout-planner.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      component: frontend
+{{- end }}

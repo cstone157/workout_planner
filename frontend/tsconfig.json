@@ -11,10 +11,10 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "paths": {
-      "$components/*": ["src/components/*"],
-      "$lib/*": ["src/lib/*"],
-      "$stores/*": ["src/stores/*"],
-      "$api/*": ["src/api/*"]
+      "$components/*": ["./src/components/*"],
+      "$lib/*": ["./src/lib/*"],
+      "$stores/*": ["./src/stores/*"],
+      "$api/*": ["./src/api/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.svelte"],

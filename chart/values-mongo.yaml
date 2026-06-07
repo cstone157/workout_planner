@@ -22,25 +22,10 @@ mongodb:
       cpu: "250m"
 
 backend:
-  enabled: true
-  replicaCount: 1
-  image:
-    tag: dev
-  autoscaling:
-    enabled: false
-  env:
-    RUST_LOG: debug
-    CORS_ALLOWED_ORIGINS: "http://localhost:3000,http://localhost:5173"
+  enabled: false
 
 frontend:
-  enabled: true
-  replicaCount: 1
-  service:
-    type: NodePort
-  autoscaling:
-    enabled: false
-  env:
-    VITE_API_URL: "http://localhost:8080"
+  enabled: false
 
 podDisruptionBudget:
   enabled: false

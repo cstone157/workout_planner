@@ -33,6 +33,6 @@ async fn main() -> std::io::Result<()> {
     .await
 }
 
-async fn health_check() -> actix_web::Result<web::Json<serde_json::json!({})> {
+async fn health_check() -> actix_web::Result<web::Json<serde_json::Value>> {
     Ok(web::Json(serde_json::json!({ "status": "ok" })))
 }

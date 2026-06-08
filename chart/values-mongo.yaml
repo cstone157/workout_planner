@@ -11,7 +11,7 @@ mongodb:
     rootPassword: dev-password
   persistence:
     size: 5Gi
-    storageClass: standard
+    storageClass: local-path
   replicas: 1
   resources:
     requests:

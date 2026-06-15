@@ -1,5 +1,5 @@
 # ===== Stage 1: Dependency caching with cargo-chef =====
-FROM rust:1.80-slim AS chef
+FROM rust:1.91-slim AS chef
 RUN cargo install cargo-chef
 WORKDIR /app
 

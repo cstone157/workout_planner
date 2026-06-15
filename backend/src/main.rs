@@ -7,7 +7,7 @@ mod routes;
 
 use std::sync::Arc;
 use axum::{
-    routing::{delete, get, post, put},
+    routing::{get, post},
     Router,
 };
 use sqlx::postgres::PgPoolOptions;

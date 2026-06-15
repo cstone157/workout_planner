@@ -21,10 +21,11 @@ sqlx = { version = "0.8", features = [
     "uuid",
     "chrono",
     "migrate",
+    "rust_decimal"
 ] }
 
 # ChromaDB
-chromadb = "0.2"
+chroma = "0.2"
 
 # Embeddings — local ONNX-based model
 fastembed = "4"
@@ -36,6 +37,7 @@ bcrypt = "0.15"
 # Serialization
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+rust_decimal = "1"
 
 # Utilities
 uuid = { version = "1", features = ["v4", "serde"] }

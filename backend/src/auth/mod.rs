@@ -1,3 +1,5 @@
+pub mod password;
+
 use anyhow::Context;
 use jsonwebtoken::{decode, encode, Algorithm, DecodingKey, EncodingKey, Header, Validation};
 use serde::{Deserialize, Serialize};

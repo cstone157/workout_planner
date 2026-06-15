@@ -1,5 +1,5 @@
 use anyhow::Context;
-use chromadb::v2::{ChromaClient, ChromaClientOptions, collection::ChromaCollection};
+use chroma::{ChromaClient, ChromaClientOptions, collection::ChromaCollection};
 use std::sync::Arc;
 
 pub struct ChromaStore {
@@ -36,7 +36,7 @@ impl ChromaStore {
         embedding: Vec<f32>,
         text: &str,
     ) -> anyhow::Result<()> {
-        use chromadb::v2::collection::{CollectionEntries, GetOptions};
+        use chroma::collection::{CollectionEntries, GetOptions};
 
         let entries = CollectionEntries {
             ids: vec![id.to_string()],
@@ -52,7 +52,7 @@ impl ChromaStore {
     }
 
     pub async fn delete_exercise(&self, id: &str) -> anyhow::Result<()> {
-        use chromadb::v2::collection::GetOptions;
+        use chroma::collection::GetOptions;
         self.exercises_collection
             .delete(Some(vec![id.to_string()]), None, None)
             .await
@@ -64,7 +64,7 @@ impl ChromaStore {
         query_embedding: Vec<f32>,
         n_results: usize,
     ) -> anyhow::Result<Vec<(String, f32)>> {
-        use chromadb::v2::collection::QueryOptions;
+        use chroma::collection::QueryOptions;
 
         let results = self.exercises_collection
             .query(

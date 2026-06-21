@@ -13,5 +13,17 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./init-scripts:/docker-entrypoint-initdb.d
 
+  backend:
+    build: ./backend
+    container_name: fitness-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://fitness_user:fitness_password@db:5432/fitness_tracker
+      - JWT_SECRET=youshallnotpass
+    depends_on:
+      - db
+
 volumes:
   postgres_data:

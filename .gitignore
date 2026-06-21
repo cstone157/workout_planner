@@ -1,0 +1,15 @@
+# Environment files
+.env
+.env.*
+
+# Rust Package target directories
+target/
+backend/target/
+**/*.rs.bk
+
+# OS and Editor files
+.DS_Store
+.vscode/
+.idea/
+*~
+*.swp

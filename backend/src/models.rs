@@ -32,3 +32,23 @@ pub struct Workout {
     pub notes: Option<String>,
     pub created_at: Option<DateTime<Utc>>,
 }
+
+#[allow(dead_code)]
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Exercise {
+    pub id: Uuid,
+    pub name: String,
+    pub description: Option<String>,
+    pub created_at: Option<DateTime<Utc>>,
+}
+
+#[allow(dead_code)]
+#[derive(Debug, Serialize, Deserialize)]
+pub struct WorkoutExercise {
+    pub id: Uuid,
+    pub workout_id: Uuid,
+    pub exercise_id: Uuid,
+    pub metrics: serde_json::Value,
+    pub sort_order: i32,
+    pub created_at: Option<DateTime<Utc>>,
+}

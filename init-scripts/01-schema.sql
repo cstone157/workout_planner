@@ -36,3 +36,28 @@ CREATE TABLE workout_equipment (
     equipment_id UUID REFERENCES equipment(id) ON DELETE CASCADE,
     PRIMARY KEY (workout_id, equipment_id)
 );
+
+-- Exercises table
+CREATE TABLE exercises (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Mapping table for exercise and required equipment
+CREATE TABLE exercise_equipment (
+    exercise_id UUID REFERENCES exercises(id) ON DELETE CASCADE,
+    equipment_id UUID REFERENCES equipment(id) ON DELETE CASCADE,
+    PRIMARY KEY (exercise_id, equipment_id)
+);
+
+-- Mapping table for workouts and exercises (with metrics)
+CREATE TABLE workout_exercises (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    workout_id UUID NOT NULL REFERENCES workouts(id) ON DELETE CASCADE,
+    exercise_id UUID NOT NULL REFERENCES exercises(id) ON DELETE CASCADE,
+    metrics JSONB NOT NULL,
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);

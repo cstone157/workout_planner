@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-base: #0f111a;
+  --bg-surface: rgba(25, 27, 40, 0.6);
+  --bg-surface-hover: rgba(35, 38, 55, 0.8);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --secondary: #a855f7;
+  --danger: #ef4444;
+  --success: #10b981;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+  /* Premium dynamic background gradient */
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.15), transparent 25%);
+  background-attachment: fixed;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glass-card {
+  padding: 24px;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  background: var(--bg-surface-hover);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Typography */
+h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; color: transparent; }
+h2 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.75rem; }
+h3 { font-size: 1.4rem; font-weight: 500; margin-bottom: 0.5rem; }
+p { line-height: 1.6; color: var(--text-secondary); }
+
+/* Form Elements */
+.input-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.btn-secondary:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
